@@ -29,8 +29,8 @@ export default function GuitarPage() {
             progress:20,
         },
     ]);
-
-    // 아래 state들은 입력폰에 적는 값을 임시로 저장
+    
+    // 아래 state들은 입력폼에 적는 값을 임시로 저장
     const [newTitle, setNewTitle] = useState("");
     const [newBpm, setNewBpm] = useState("");
     const [newUrl, setNewUrl] = useState("");
