@@ -37,3 +37,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 My Plan (Notion)
 [https://sand-pastry-cf0.notion.site/First-Project-395d9735745780dfbe53e2e6bc0188c6?source=copy_link]
+
+Site
+[https://mycozyconer.netlify.app/]
