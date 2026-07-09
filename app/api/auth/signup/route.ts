@@ -8,27 +8,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Post 요청 처리 함수
 // 클리이언트에서 이메일과 비밀번호를 보내면 계정을 생성
-export async function POST(request: NextRequest) {
+export async function POST(requst:NextRequest) {
     try {
-        const text = await request.text();
-        if (!text) {
-            return NextResponse.json(
-                { error: '요청 바디가 비어있습니다. JSON을 보내주세요.' },
-                { status: 400 }
-            );
-        }
-
-        let body;
-        try {
-            body = JSON.parse(text);
-        } catch (error) {
-            return NextResponse.json(
-                { error: '유효하지 않은 JSON입니다.' },
-                { status: 400 }
-            );
-        }
-
-        const { email, password } = body;
+        // 클라이언트에서 보낸 데이터를 JSON으로 받음
+        const { email, password } = await requst.json();
 
         // 이메일과 비밀번호가 있는지 확인
         if (!email || !password) {

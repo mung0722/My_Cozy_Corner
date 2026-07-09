@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     if (!token) return NextResponse.json({ error: "Authorization token required" }, { status: 401 });
 
     // 전달받은 토큰을 이용하여 현재 로그인한 사용자 정보를 조회
-    const { data: userData, error: userError } = await supabase.auth.getUser(token);
+    const { data: userData, error: userError } = await supabaseAdmin.auth.getUser(token);
 
     // 토큰이 유효하지 않거나 사용자 정보를 가져오지 못한 경우
     if (userError || !userData?.user) return NextResponse.json({ error: "Invalid token" }, { status: 401 });
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
     // guitar_bpm_logs 테이블에 log 객체를 삽입
     // insert()는 배열 형태로 데이터를 전달해야 함
-    const { data, error } = await supabase.from("guitar_bpm_logs").insert([log]);
+    const { data, error } = await supabaseAdmin.from("guitar_bpm_logs").insert([log]);
 
     // DB 삽입 중 오류가 발생한 경우
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -86,7 +86,7 @@ export async function GET(req: NextRequest) {
     if (!token) return NextResponse.json({ error: "Authorization token required" }, { status: 401 });
 
     // 전달받은 토큰을 이용하여 현재 로그인한 사용자 정보를 조회
-    const { data: userData, error: userError } = await supabase.auth.getUser(token);
+    const { data: userData, error: userError } = await supabaseAdmin.auth.getUser(token);
 
     // 토큰이 유효하지 않거나 사용자 정보를 가져오지 못한 경우
     if (userError || !userData?.user) return NextResponse.json({ error: "Invalid token" }, { status: 401 });
@@ -102,7 +102,7 @@ export async function GET(req: NextRequest) {
     const songId = url.searchParams.get("song_id");
 
     // guitar_bpm_logs 테이블에서 현재 로그인한 사용자의 데이터만 조회하는 기본 쿼리 생성
-    let query = supabase.from("guitar_bpm_logs").select("*").eq("user_id", user.id);
+    let query = supabaseAdmin.from("guitar_bpm_logs").select("*").eq("user_id", user.id);
 
     // song_id가 전달되었다면 해당 곡의 기록만 조회하도록 조건 추가
     if (songId) query = query.eq("song_id", songId);
